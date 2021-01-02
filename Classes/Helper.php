@@ -48,7 +48,7 @@ class Helper {
         //debug('WHJOLE DOC 1 '.$dom->saveHTML());
 
         if (!$parseResult || $lastError) {
-            return static::getErrorMarkup('Unable to parse HTML. Add a HTML comment <!-- ' . self::COMMENT_NO_PARSING . ' --> to prevent processing with skiframe extension.'.($lastError?' Error: '.$lastError->message:'') );
+            return static::getErrorMarkup('Unable to parse HTML. '.($lastError?' Error: '.$lastError->message:''),$extensionSettings );
         }
         libxml_use_internal_errors($previousValue);
 
@@ -56,7 +56,7 @@ class Helper {
         if ( ($extensionSettings['disallowscripttag']??false )) {
             if (count($dom->getElementsByTagName('script')) ) {
                 // script tag not allowed
-                return static::getErrorMarkup('Script tags are not allowed in HTML content elements. Add a HTML comment <!-- ' . self::COMMENT_NO_PARSING . ' --> to prevent processing with skiframe extension.' );
+                return static::getErrorMarkup('Script tags are not allowed in HTML content elements. ',$extensionSettings );
             }
         }
 
@@ -74,9 +74,7 @@ class Helper {
             //debug("count $iframeCount / ".count($iframeList).", type:".$sourceType." for $iframeSrc");
             if ($sourceType == self::MATCH_ERROR) { // apparently php constants have no type, and thus === does not work
                 return static::getErrorMarkup(
-                    'Unable to determine iframe src for ' . (htmlspecialchars(
-                        $iframeSrc
-                    )) . '. Add a HTML comment <!-- ' . self::COMMENT_NO_PARSING . ' --> to prevent processing with skiframe extension.'
+                    'Unable to determine iframe src for. ', $extensionSettings
                 );
             }
 
@@ -123,7 +121,7 @@ class Helper {
                     return static::getErrorMarkup(
                         'Unable to generate replacement content for HTML with script tag' . (htmlspecialchars(
                             $iframeSrc
-                        )) . '. Add a HTML comment <!-- ' . self::COMMENT_NO_PARSING . ' --> to prevent processing with skiframe extension.'
+                        )) . '.', $extensionSettings
                     );
                 }
                 $iframe->parentNode->replaceChild($replacementNode, $iframe);
@@ -159,13 +157,13 @@ class Helper {
         }
 
         $newNode->setAttribute('data-original',$originalMarkup);
-        //$nodeContainingContent->nodeValue = ' iframe in CE xxxxxxxxxxxxDOES match'.$originalMarkup;
+
         $messageMarkup = static::getMessageMarkup($type, $extensionSettings);
         if (!$messageMarkup) {
             return NULL;
         }
         static::appendHTML($nodeContainingContent, '<div class="messageContainer">'.$messageMarkup.'</div>');
-        static::appendHTML($nodeContainingContent, '<div class="showButtonContainer"><span class="showButton">I understand. Show content</span></div>');
+        static::appendHTML($nodeContainingContent, '<div class="showButtonContainer"><span class="showButton">I understand. Show content.</span></div>');
         return $newNode;
     }
     private static function getMessageMarkup($type, $extensionSettings) {
@@ -210,8 +208,10 @@ class Helper {
 
         return $html;
     }
-    private static function getErrorMarkup(string $msg) : string {
-        return '<div class="tx_skiframe error">'.htmlspecialchars($msg).'</div>';
+    private static function getErrorMarkup(string $msg, array $extensionSettings) : string {
+        return '<div class="tx_skiframe error">'.htmlspecialchars($msg.
+                                                                  (($extensionSettings['disallowskipprocessing']??false)?'':'Add a HTML comment <!-- ' . self::COMMENT_NO_PARSING . ' --> to prevent processing with skiframe extension.')
+            ).'</div>';
     }
 
     private static function getIframeSourceType(?string $src, array $extensionSettings) : ?string {

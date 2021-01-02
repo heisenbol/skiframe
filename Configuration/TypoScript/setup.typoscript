@@ -26,6 +26,7 @@ plugin.tx_skiframe {
         vimeomessage = {$plugin.tx_skiframe.settings.vimeomessage}
         otheriframemessage = {$plugin.tx_skiframe.settings.otheriframemessage}
         disallowscripttag = {$plugin.tx_skiframe.settings.disallowscripttag}
+        disallowskipprocessing = {$plugin.tx_skiframe.settings.disallowskipprocessing}
     }
 }
 
