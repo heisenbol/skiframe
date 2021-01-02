@@ -53,122 +53,86 @@ class Helper {
         libxml_use_internal_errors($previousValue);
 
         // if replaceifscripttag constant is true, and there is a script tag somewhere in the markup, then replace the whole content
-        $scriptTagDetectedAndShouldReplace = false;
-        if ( ($extensionSettings['replaceifscripttag']??false )) {
+        if ( ($extensionSettings['disallowscripttag']??false )) {
             if (count($dom->getElementsByTagName('script')) ) {
-                $scriptTagDetectedAndShouldReplace = true;
+                // script tag not allowed
+                return static::getErrorMarkup('Script tags are not allowed in HTML content elements. Add a HTML comment <!-- ' . self::COMMENT_NO_PARSING . ' --> to prevent processing with skiframe extension.' );
             }
         }
-        if (!$scriptTagDetectedAndShouldReplace) {
-            $iframeList = [];
-            // get list of iframes separately, as replacing them on the fly messes up the dom and iframes are lost
-            foreach ($dom->getElementsByTagName('iframe') as $iframe) {
-                $iframeList[] = $iframe;
+
+        $iframeList = [];
+        // get list of iframes separately, as replacing them on the fly messes up the dom and iframes are lost
+        foreach ($dom->getElementsByTagName('iframe') as $iframe) {
+            $iframeList[] = $iframe;
+        }
+
+        foreach ($iframeList as $iframe) {
+            $iframeCount++;
+            $iframeSrc = $iframe->getAttribute('src');
+
+            $sourceType = static::getIframeSourceType($iframeSrc, $extensionSettings);
+            //debug("count $iframeCount / ".count($iframeList).", type:".$sourceType." for $iframeSrc");
+            if ($sourceType == self::MATCH_ERROR) { // apparently php constants have no type, and thus === does not work
+                return static::getErrorMarkup(
+                    'Unable to determine iframe src for ' . (htmlspecialchars(
+                        $iframeSrc
+                    )) . '. Add a HTML comment <!-- ' . self::COMMENT_NO_PARSING . ' --> to prevent processing with skiframe extension.'
+                );
             }
 
-            foreach ($iframeList as $iframe) {
-                $iframeCount++;
-                $iframeSrc = $iframe->getAttribute('src');
 
-                $sourceType = static::getIframeSourceType($iframeSrc, $extensionSettings);
-                //debug("count $iframeCount / ".count($iframeList).", type:".$sourceType." for $iframeSrc");
-                if ($sourceType == self::MATCH_ERROR) { // apparently php constants have no type, and thus === does not work
-                    return static::getErrorMarkup(
-                        'Unable to determine iframe src for ' . (htmlspecialchars(
-                            $iframeSrc
-                        )) . '. Add a HTML comment <!-- ' . self::COMMENT_NO_PARSING . ' --> to prevent processing with skiframe extension.'
-                    );
-                }
-
-
-                $doReplace = false;
-                if ($sourceType == self::TYPE_YT && ($extensionSettings['processyoutube'] ?? false)) {
+            $doReplace = false;
+            if ($sourceType == self::TYPE_YT && ($extensionSettings['processyoutube'] ?? false)) {
+                $replacementCount++;
+                $doReplace = true;
+            } else {
+                if ($sourceType == self::TYPE_GMAP && ($extensionSettings['processgmap'] ?? false)) {
                     $replacementCount++;
                     $doReplace = true;
                 } else {
-                    if ($sourceType == self::TYPE_GMAP && ($extensionSettings['processgmap'] ?? false)) {
+                    if ($sourceType == self::TYPE_VIMEO && ($extensionSettings['processvimeo'] ?? false)) {
                         $replacementCount++;
                         $doReplace = true;
                     } else {
-                        if ($sourceType == self::TYPE_VIMEO && ($extensionSettings['processvimeo'] ?? false)) {
+                        if (($extensionSettings['processotheriframe'] ?? false)) {
                             $replacementCount++;
                             $doReplace = true;
-                        } else {
-                            if (($extensionSettings['processotheriframe'] ?? false)) {
-                                $replacementCount++;
-                                $doReplace = true;
-                            }
                         }
                     }
                 }
-                if ($doReplace) {
-                    $width = intval($iframe->getAttribute('width'));
-                    $height = intval($iframe->getAttribute('height'));
-                    if (!$width) {
-                        $width = DEFAULT_WIDTH;
-                    }
-                    if (!$height) {
-                        $height = DEFAULT_HEIGHT;
-                    }
-
-                    $replacementNode = static::getReplacement(
-                        $dom,
-                        $iframe,
-                        $sourceType,
-                        $width,
-                        $height,
-                        $extensionSettings
-                    );
-                    if (!$replacementNode) {
-                        return static::getErrorMarkup(
-                            'Unable to generate replacement content for HTML with script tag' . (htmlspecialchars(
-                                $iframeSrc
-                            )) . '. Add a HTML comment <!-- ' . self::COMMENT_NO_PARSING . ' --> to prevent processing with skiframe extension.'
-                        );
-                    }
-                    $iframe->parentNode->replaceChild($replacementNode, $iframe);
+            }
+            if ($doReplace) {
+                $width = intval($iframe->getAttribute('width'));
+                $height = intval($iframe->getAttribute('height'));
+                if (!$width) {
+                    $width = DEFAULT_WIDTH;
                 }
-            }
+                if (!$height) {
+                    $height = DEFAULT_HEIGHT;
+                }
 
-            if ($replacementCount) {
-                // find the body tag that was inserted at the beginning and return only it's content
-                return static::innerHTML($dom->getElementsByTagName('body')[0] ?? null);
-            }
-        }
-
-        if ($scriptTagDetectedAndShouldReplace) {
-            // We have to replace the whole content as there is a script tag present and replaceifscripttag constant is set to true
-            // We do not have specific width and height in this case, so use some predefined values
-            // As we do not have a specific node to replace, create a new DOMDocument, add a skmyspan to it, add the whole original content to the skmyspan, and replace the skmyspan
-            // We do not need to duplicate the whole error handling, as it was already done at the beginning (I hope!)
-
-            $newDom = new \DOMDocument;
-            $newDom->loadHTML('<html><body><skmyspan>'.$html.'</skmyspan></body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $skmyspanList = [];
-            // get list of iframes separately, as replacing them on the fly messes up the dom and iframes are lost
-            foreach ($newDom->getElementsByTagName('skmyspan') as $skmyspan) {
-                $skmyspanList[] = $skmyspan;
-            }
-
-            // there will be only a single skmyspan tag
-            foreach ($skmyspanList as $skmyspan) {
                 $replacementNode = static::getReplacement(
-                    $newDom,
-                    $skmyspan,
+                    $dom,
+                    $iframe,
                     $sourceType,
-                    self::DEFAULT_WIDTH,
-                    self::DEFAULT_HEIGHT,
+                    $width,
+                    $height,
                     $extensionSettings
                 );
                 if (!$replacementNode) {
                     return static::getErrorMarkup(
-                        'Unable to generate replacement content for HTML with script tag. Add a HTML comment <!-- ' . self::COMMENT_NO_PARSING . ' --> to prevent processing with skiframe extension.'
+                        'Unable to generate replacement content for HTML with script tag' . (htmlspecialchars(
+                            $iframeSrc
+                        )) . '. Add a HTML comment <!-- ' . self::COMMENT_NO_PARSING . ' --> to prevent processing with skiframe extension.'
                     );
                 }
-                $skmyspan->parentNode->replaceChild($replacementNode, $skmyspan);
-                return static::innerHTML($newDom->getElementsByTagName('body')[0] ?? null);
+                $iframe->parentNode->replaceChild($replacementNode, $iframe);
             }
+        }
 
+        if ($replacementCount) {
+            // find the body tag that was inserted at the beginning and return only it's content
+            return static::innerHTML($dom->getElementsByTagName('body')[0] ?? null);
         }
 
         return $html;

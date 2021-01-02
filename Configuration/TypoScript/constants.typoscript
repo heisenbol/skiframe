@@ -19,8 +19,8 @@ plugin.tx_skiframe {
     	# cat=skiframe//06; type=boolean; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:processotheriframe
         processotheriframe = 0
 
-    	# cat=skiframe//07; type=boolean; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:replaceifscripttag
-        replaceifscripttag = 1
+    	# cat=skiframe//07; type=boolean; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:disallowscripttag
+        disallowscripttag = 0
 
         # cat=skiframe//08; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:youtuberegex
         youtuberegex = /^https:\/\/www.youtube.com\/embed\//

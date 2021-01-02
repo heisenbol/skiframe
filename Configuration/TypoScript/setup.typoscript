@@ -25,7 +25,7 @@ plugin.tx_skiframe {
         gmapmessage = {$plugin.tx_skiframe.settings.gmapmessage}
         vimeomessage = {$plugin.tx_skiframe.settings.vimeomessage}
         otheriframemessage = {$plugin.tx_skiframe.settings.otheriframemessage}
-        replaceifscripttag = {$plugin.tx_skiframe.settings.replaceifscripttag}
+        disallowscripttag = {$plugin.tx_skiframe.settings.disallowscripttag}
     }
 }
 
