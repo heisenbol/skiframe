@@ -1,0 +1,32 @@
+lib.contentElement {
+    templateRootPaths {
+        1501 = EXT:skiframe/Resources/Private/Fluid_styled_content/Templates/
+    }
+}
+
+
+
+#[{$plugin.tx_skiframe.settings.nocss} == false]
+#    page.includeCSS.skiframe = EXT:skiframe/Resources/Public/Css/styles.css
+#[END]
+
+plugin.tx_skiframe {
+    settings {
+        processyoutube = {$plugin.tx_skiframe.settings.processyoutube}
+        youtuberegex = {$plugin.tx_skiframe.settings.youtuberegex}
+        processgmap = {$plugin.tx_skiframe.settings.processgmap}
+        vimeoregex = {$plugin.tx_skiframe.settings.vimeoregex}
+        processvimeo = {$plugin.tx_skiframe.settings.processvimeo}
+        gmapregex = {$plugin.tx_skiframe.settings.gmapregex}
+        processotheriframe = {$plugin.tx_skiframe.settings.processotheriframe}
+        nocss = {$plugin.tx_skiframe.settings.nocss}
+        fullwidth = {$plugin.tx_skiframe.settings.fullwidth}
+        youtubemessage = {$plugin.tx_skiframe.settings.youtubemessage}
+        gmapmessage = {$plugin.tx_skiframe.settings.gmapmessage}
+        vimeomessage = {$plugin.tx_skiframe.settings.vimeomessage}
+        otheriframemessage = {$plugin.tx_skiframe.settings.otheriframemessage}
+        replaceifscripttag = {$plugin.tx_skiframe.settings.replaceifscripttag}
+    }
+}
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-07-20T13:27:25Z" product-name="skvideo">
+		<header/>
+		<body>
+			<trans-unit id="message">
+				<source>This video is served by VIDEOPROVIDER. If you continue, VIDEOPROVIDER will be able to track information about you (e.g. your IP, your viewing behavior etc)</source>
+			</trans-unit>
+			<trans-unit id="rememberme">
+				<source>Remember my decision for 30 days using a cookie</source>
+			</trans-unit>
+			<trans-unit id="cancel">
+				<source>Cancel</source>
+			</trans-unit>
+			<trans-unit id="continue">
+				<source>I agree, show the video</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
+

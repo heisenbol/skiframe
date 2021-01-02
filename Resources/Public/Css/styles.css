@@ -1,0 +1,53 @@
+.tx_skiframe.error {
+    border:1px solid black;
+    padding:1em;
+    background-color:yellow;
+}
+
+.tx_skiframe_container {
+    background-color: #d5d3d3;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.tx_skiframe_container.fullwidth {
+
+}
+.tx_skiframe_container .messageContainer {
+    padding:2em;
+}
+.tx_skiframe_container .showButtonContainer {
+    text-align: center;
+}
+.tx_skiframe_container .showButton {
+    background-color: #a3a1a1;
+    display:inline-block;
+    text-align:center;
+    padding:1em;
+    margin:1em auto 0 1em;
+    border:1px solid black;
+    cursor: pointer;
+}
+
+.tx_skiframe_container.fullwidth[style*="--aspect-ratio"] > :first-child {
+    width: 100%;
+}
+.tx_skiframe_container.fullwidth[style*="--aspect-ratio"] > img {
+    height: auto;
+}
+@supports (--custom:property) {
+    .tx_skiframe_container.fullwidth[style*="--aspect-ratio"] {
+        position: relative;
+    }
+    .tx_skiframe_container.fullwidth[style*="--aspect-ratio"]::before {
+        content: "";
+        display: block;
+        padding-bottom: calc(100% / (var(--aspect-ratio)));
+    }
+    .tx_skiframe_container.fullwidth[style*="--aspect-ratio"] > :first-child {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+    }
+}
