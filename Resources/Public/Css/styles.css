@@ -35,6 +35,7 @@
 .tx_skiframe_container.fullwidth[style*="--aspect-ratio"] > img {
     height: auto;
 }
+/* https://css-tricks.com/aspect-ratio-boxes/ */
 @supports (--custom:property) {
     .tx_skiframe_container.fullwidth[style*="--aspect-ratio"] {
         position: relative;

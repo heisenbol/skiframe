@@ -18,14 +18,17 @@ plugin.tx_skiframe {
         vimeoregex = {$plugin.tx_skiframe.settings.vimeoregex}
         processvimeo = {$plugin.tx_skiframe.settings.processvimeo}
         gmapregex = {$plugin.tx_skiframe.settings.gmapregex}
+        twitterembedregex = {$plugin.tx_skiframe.settings.twitterembedregex}
         processotheriframe = {$plugin.tx_skiframe.settings.processotheriframe}
         nocss = {$plugin.tx_skiframe.settings.nocss}
         fullwidth = {$plugin.tx_skiframe.settings.fullwidth}
         youtubemessage = {$plugin.tx_skiframe.settings.youtubemessage}
         gmapmessage = {$plugin.tx_skiframe.settings.gmapmessage}
         vimeomessage = {$plugin.tx_skiframe.settings.vimeomessage}
+        twittermessage = {$plugin.tx_skiframe.settings.twittermessage}
         otheriframemessage = {$plugin.tx_skiframe.settings.otheriframemessage}
         disallowscripttag = {$plugin.tx_skiframe.settings.disallowscripttag}
+        replacescripttag = {$plugin.tx_skiframe.settings.replacescripttag}
         disallowskipprocessing = {$plugin.tx_skiframe.settings.disallowskipprocessing}
     }
 }

@@ -22,28 +22,37 @@ plugin.tx_skiframe {
     	# cat=skiframe//07; type=boolean; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:disallowscripttag
         disallowscripttag = 0
 
-    	# cat=skiframe//08; type=boolean; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:disallowskipprocessing
+    	# cat=skiframe//08; type=boolean; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:replacescripttag
+        replacescripttag = 0
+
+    	# cat=skiframe//09; type=boolean; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:disallowskipprocessing
         disallowskipprocessing = 0
 
-        # cat=skiframe//09; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:youtuberegex
+        # cat=skiframe//10; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:youtuberegex
         youtuberegex = /^https:\/\/www.youtube.com\/embed\//
 
-        # cat=skiframe//10; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:vimeoregex
+        # cat=skiframe//11; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:vimeoregex
         vimeoregex = /^https:\/\/player.vimeo.com\/video\//
 
-        # cat=skiframe//11; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:gmapregex
+        # cat=skiframe//12; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:gmapregex
         gmapregex = /^https:\/\/www.google.com\/maps\//
 
-        # cat=skiframe//12; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:youtubemessage
-        youtubemessage = <h3>External Video</h3><p>This Video is served by YouTube. Viewing the video will initiate a connection between your browser and YouTube. YouTube will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>
-
-        # cat=skiframe//13; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:youtubemessage
-        vimeomessage = <h3>External Video</h3><p>This Video is served by Vimeo. Viewing the video will initiate a connection between your browser and Vimeo. Vimeo will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>
+        # cat=skiframe//13; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:twitterembed
+        twitterembedregex = /^https:\/\/platform.twitter.com\/widgets/
 
         # cat=skiframe//14; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:youtubemessage
-        gmapmessage = <h3>External Map</h3><p>This map is served by Google Maps. Viewing the map will initiate a connection between your browser and Google Maps. Google Maps will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>
+        youtubemessage = <h3>External Video</h3><p>This Video is served by YouTube. Viewing the video will initiate a connection between your browser and YouTube. YouTube will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>
 
         # cat=skiframe//15; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:youtubemessage
+        vimeomessage = <h3>External Video</h3><p>This Video is served by Vimeo. Viewing the video will initiate a connection between your browser and Vimeo. Vimeo will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>
+
+        # cat=skiframe//16; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:youtubemessage
+        gmapmessage = <h3>External Map</h3><p>This map is served by Google Maps. Viewing the map will initiate a connection between your browser and Google Maps. Google Maps will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>
+
+        # cat=skiframe//17; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:youtubemessage
+        twittermessage = <h3>External Twitter Content</h3><p>This content is served by Twitter. Viewing the content will initiate a connection between your browser and Twitter. Twitter will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>
+
+        # cat=skiframe//17; type=string; label= LLL:EXT:skiframe/Resources/Private/Language/locallang_be.xlf:youtubemessage
         otheriframemessage = <h3>External Content</h3><p>This content is served by an external site. Viewing the content will initiate a connection between your browser and the external site. The external site will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>
 
     }

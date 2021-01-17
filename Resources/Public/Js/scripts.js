@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     function showContent(evt) {
         // find parent container with class tx_skiframe_container, which will hold the original content
         let parent = getClosest(evt.target, '.tx_skiframe_container');
+        let replaceContainer = parent.classList.contains('replacecontainer');
+
         if (parent) {
             // get original content
             let originalMarkup = parent.getAttribute('data-original');
@@ -19,13 +21,39 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 // @TODO some kind of alert for user?
             }
             else {
-                // replace the button and disclaimer with original markup. The possible child element of class tx_skiframe_content is replaced (this child element exists only if fullwidth constant is set to true
-                parent.innerHTML = originalMarkup;
+                // replace the button and disclaimer with original markup. The possible child element of class tx_skiframe_content is replaced (this child element exists only if fullwidth constant is set to true)
+                // in case replacecontainer is true, we replace the whole container, and not only the content
+                if (replaceContainer) {
+                    console.log('replacing container');
+                    parent.outerHTML = originalMarkup;
+                }
+                else {
+                    console.log('replacing content');
+                    parent.innerHTML = originalMarkup;
+                }
+
             }
+
+            // look for possible script tag
+            replaceScriptTags();
         }
         else {
             console.log('Could not find parent container of show button');
             // @TODO some kind of alert for user?
+        }
+    }
+
+    // look for possible script tag that must be injected into the dom. This would be a span with class tx_skiframe_script
+    function replaceScriptTags() {
+        let scriptTagPlaceholders = document.querySelectorAll('span.tx_skiframe_script');
+        let src;
+        for (let count = 0; count < scriptTagPlaceholders.length; count++) {
+            // data-skiframesrc will hold the script src
+            src = scriptTagPlaceholders[count].getAttribute('data-skiframesrc');
+            console.log('inject',src);
+            let scriptTag = document.createElement('script');
+            scriptTag.setAttribute('src',src);
+            scriptTagPlaceholders[count].parentNode.replaceChild(scriptTag, scriptTagPlaceholders[count]);
         }
     }
 
