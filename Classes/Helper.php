@@ -264,30 +264,30 @@ class Helper {
             return NULL;
         }
         static::appendHTML($nodeContainingContent, '<div class="messageContainer">'.$messageMarkup.'</div>');
-        static::appendHTML($nodeContainingContent, '<div class="showButtonContainer"><span class="showButton">I understand. Show content.</span></div>');
+        static::appendHTML($nodeContainingContent, '<div class="showButtonContainer"><span class="showButton">'.\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('showcontent','skiframe').'</span></div>');
         return $newNode;
     }
     private static function getMessageMarkup($type, $extensionSettings) {
         $markup = null;
         switch ($type) {
             case self::TYPE_YT:
-                $markup = $extensionSettings['youtubemessage']??null;
+                $markup = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('youtubemessage','skiframe');
                 break;
             case self::TYPE_GMAP:
-                $markup = $extensionSettings['gmapmessage']??null;
+                $markup = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('gmapmessage','skiframe');
                 break;
             case self::TYPE_VIMEO:
-                $markup = $extensionSettings['vimeomessage']??null;
+                $markup = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('vimeomessage','skiframe');
                 break;
             case self::TYPE_TWITTER:
-                $markup = $extensionSettings['twittermessage']??null;
+                $markup = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('twittermessage','skiframe');
                 break;
             case self::TYPE_OTHERSCRIPT:
-                $markup = $extensionSettings['otheriframemessage']??null;
+                $markup = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('otheriframemessage','skiframe');
                 break;
         }
         if (!$markup) {
-            $markup = $extensionSettings['otheriframemessage']??null;
+            $markup = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('otheriframemessage','skiframe');
         }
         if (!$markup) {
             return NULL;

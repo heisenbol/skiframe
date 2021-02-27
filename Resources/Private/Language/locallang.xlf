@@ -3,18 +3,25 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2019-07-20T13:27:25Z" product-name="skvideo">
 		<header/>
 		<body>
-			<trans-unit id="message">
-				<source>This video is served by VIDEOPROVIDER. If you continue, VIDEOPROVIDER will be able to track information about you (e.g. your IP, your viewing behavior etc)</source>
+			<trans-unit id="youtubemessage">
+				<source><![CDATA[<h3>External Video</h3><p>This Video is served by YouTube. Viewing the video will initiate a connection between your browser and YouTube. YouTube will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>]]></source>
 			</trans-unit>
-			<trans-unit id="rememberme">
-				<source>Remember my decision for 30 days using a cookie</source>
+			<trans-unit id="gmapmessage">
+				<source><![CDATA[<h3>External Map</h3><p>This map is served by Google Maps. Viewing the map will initiate a connection between your browser and Google Maps. Google Maps will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>]]></source>
 			</trans-unit>
-			<trans-unit id="cancel">
-				<source>Cancel</source>
+			<trans-unit id="vimeomessage">
+				<source><![CDATA[<h3>External Video</h3><p>This Video is served by Vimeo. Viewing the video will initiate a connection between your browser and Vimeo. Vimeo will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>]]></source>
 			</trans-unit>
-			<trans-unit id="continue">
-				<source>I agree, show the video</source>
+			<trans-unit id="twittermessage">
+				<source><![CDATA[<h3>External Twitter Content</h3><p>This content is served by Twitter. Viewing the content will initiate a connection between your browser and Twitter. Twitter will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>]]></source>
 			</trans-unit>
+			<trans-unit id="otheriframemessage">
+				<source><![CDATA[<h3>External Content</h3><p>This content is served by an external site. Viewing the content will initiate a connection between your browser and the external site. The external site will be able to track information about you (e.g. your IP address, your viewing behavior etc).</p>]]></source>
+			</trans-unit>
+			<trans-unit id="showcontent">
+				<source><![CDATA[I understand. Show content.]]></source>
+			</trans-unit>
+
 		</body>
 	</file>
 </xliff>
