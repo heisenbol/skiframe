@@ -242,7 +242,7 @@ class Helper {
         $fullWidth = $extensionSettings['fullwidth']??false;
         $nodeContainingContent = null;
         if ($fullWidth) {
-            $newNode->setAttribute('class','tx_skiframe_container fullwidth'.($doNotHonorDimensionsWhenReplacing?' replacecontainer':''));
+            $newNode->setAttribute('class','tx_skiframe_container '.$type.' fullwidth'.($doNotHonorDimensionsWhenReplacing?' replacecontainer':''));
             // https://css-tricks.com/aspect-ratio-boxes/
             $newNode->setAttribute('style','--aspect-ratio:'.$width.'/'.$height.';');
 
@@ -252,7 +252,7 @@ class Helper {
             $newNode->appendChild($nodeContainingContent);
         }
         else {
-            $newNode->setAttribute('class','tx_skiframe_container tx_skiframe_content'.($doNotHonorDimensionsWhenReplacing?' replacecontainer':''));
+            $newNode->setAttribute('class','tx_skiframe_container type_'.$type.' tx_skiframe_content'.($doNotHonorDimensionsWhenReplacing?' replacecontainer':''));
             $newNode->setAttribute('style','width:'.$width.'px;height:'.$height.'px;');
             $nodeContainingContent = $newNode;
         }

@@ -8,6 +8,33 @@
     background-color: #d5d3d3;
     margin-left:auto;
     margin-right:auto;
+    background-repeat: no-repeat;
+    background-size: 50px;
+    background-position:right 10px top 10px ;
+}
+.tx_skiframe_container.type_10 {
+    /*google map*/
+    background-image:url('../Images/container-images/gmap.svg');
+}
+.tx_skiframe_container.type_20 {
+    /*youtube*/
+    background-image:url('../Images/container-images/yt.svg');
+}
+.tx_skiframe_container.type_30 {
+    /*vimeo*/
+    background-image:url('../Images/container-images/vimeo.svg');
+}
+.tx_skiframe_container.type_40 {
+    /*twitter*/
+    background-image:url('../Images/container-images/twitter.svg');
+}
+.tx_skiframe_container.type_100 {
+    /*other iframe*/
+    background-image:none;
+}
+.tx_skiframe_container.type_200 {
+    /*other script*/
+    background-image:none;
 }
 
 .tx_skiframe_container.fullwidth {
@@ -20,7 +47,7 @@
     text-align: center;
 }
 .tx_skiframe_container .showButton {
-    background-color: #a3a1a1;
+    background-color: #c0bdbd;
     display:inline-block;
     text-align:center;
     padding:1em;
