@@ -43,6 +43,7 @@ For the default values of the Regular Expressions, please have look into the fil
 
 ### Adapt texts
 To adapt the texts, you can override the labels of the translation files in you Template setup section. For the default language
+
 `plugin.tx_skiframe._LOCAL_LANG.default.youtubemessage = <h3>heading of disclamer</h3><p>Your custom text for youtube, including markup. This text is not escaped, so be sure to use valid HTML escape sequences if needed.</p>`
 
 For other languages, replace the "default" part with the language key "e.g. de"
